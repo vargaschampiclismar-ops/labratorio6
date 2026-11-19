@@ -1,0 +1,45 @@
+// Copyright Epic Games, Inc. All Rights Reserved.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameFramework/GameModeBase.h"
+#include "AventuraUSFX022026L1GameMode.generated.h"
+
+class APlataforma;
+class AInventory;
+
+UCLASS(MinimalAPI)
+class AAventuraUSFX022026L1GameMode : public AGameModeBase
+{
+	GENERATED_BODY()
+
+public:
+	AAventuraUSFX022026L1GameMode();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+private:
+	AInventory* Inventory;
+
+public:
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	TArray<APlataforma*> aPlataformas;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Plataformas")
+	TMap<int32, APlataforma*> MapaPlataformas;
+	
+	void ControlarMovimientoGrupo(bool bActivar);
+	FTimerHandle TimerEliminarPlataforma;
+
+	void EliminarPlataforma();
+
+	int tipoPlataformaActual;
+};
+
+
+
